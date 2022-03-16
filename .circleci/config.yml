@@ -41,6 +41,10 @@ workflows:
   one_and_two:
     jobs:
       - one
+      - approve-to-run-two:
+          type: approval
+          requires:
+            - one
       - two:
           requires:
             - one
