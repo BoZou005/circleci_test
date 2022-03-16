@@ -36,9 +36,20 @@ jobs:
           else
             echo "Nope!"; exit 1
           fi
+  three:
+    docker:
+      - image: cimg/ruby:3.0.2
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    steps:
+      - checkout
+      - run:
+          name: "echo environment variables from context"
+          command: echo $ENVIRONMENT_VARIABLE
 workflows:
   version: 2
-  one_and_two:
+  one_and_two_three:
     jobs:
       - one
       - approve-to-run-two:
@@ -48,3 +59,11 @@ workflows:
       - two:
           requires:
             - approve-to-run-two
+      - approve-to-run-three:
+          type: approval
+          requires:
+            - two  
+      - three:
+          requires:
+            - approve-to-run-three
+          context: circleci_context
