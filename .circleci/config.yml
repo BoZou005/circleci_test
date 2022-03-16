@@ -47,6 +47,9 @@ jobs:
       - run:
           name: "echo environment variables from context"
           command: echo $ENVIRONMENT_VARIABLE
+      - run:
+          name: "echo environment variables not exist"
+          command: echo $ENVIRONMENT_VARIABLE_WRONG
 workflows:
   version: 2
   one_and_two_three:
