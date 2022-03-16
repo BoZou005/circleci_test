@@ -47,4 +47,4 @@ workflows:
             - one
       - two:
           requires:
-            - one
+            - approve-to-run-two
